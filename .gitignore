@@ -25,3 +25,7 @@ hs_err_pid*
 #Arquivos Ignorados pelo GIT
 
 *.xml
+/ProjetoCalculadoraUdemy/target/
+*.classpath
+*.project
+*.prefs
