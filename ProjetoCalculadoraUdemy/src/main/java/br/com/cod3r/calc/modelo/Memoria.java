@@ -1,5 +1,8 @@
 package br.com.cod3r.calc.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //LÓGICA DA CALCULADORA
 
 public class Memoria {
@@ -14,6 +17,7 @@ public class Memoria {
 	// Atributos
 
 	private String textoAtual = "";
+	private final List<MemoriaObservador> observadores = new ArrayList<>();
 
 	// Construtor
 	private Memoria() {
@@ -29,6 +33,19 @@ public class Memoria {
 	public String getTextoAtual() {
 		return textoAtual.isEmpty() ? "0" : textoAtual;
 		// Se o texto atual estiver vazio, ele coloque '0' SENÃO coloque o 'textoAtual'
+	}
+
+	public void adicionarObservador(MemoriaObservador observador) {
+		observadores.add(observador);
+	}
+
+	public void processarComando(String valor) {
+		if ("AC".equals(valor)) {
+			textoAtual = "";
+		} else {
+			textoAtual += valor;
+		}
+		observadores.forEach(o -> o.valorAlterado(getTextoAtual()));
 	}
 
 }
